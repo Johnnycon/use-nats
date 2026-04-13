@@ -1,0 +1,16 @@
+{{define "content"}}
+<div class="dashboard">
+  <h1>NATS Learning Lab</h1>
+  <p class="subtitle">Interactive demos for NATS and JetStream patterns. Each demo is isolated — explore them in any order.</p>
+
+  <div class="demo-grid">
+    {{range .Demos}}
+    <a href="/demo/{{.ID}}" class="demo-card">
+      <span class="demo-category">{{.Category}}</span>
+      <h2>{{.Title}}</h2>
+      <p>{{.Description}}</p>
+    </a>
+    {{end}}
+  </div>
+</div>
+{{end}}

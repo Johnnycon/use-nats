@@ -1,0 +1,70 @@
+{{define "content"}}
+<div class="demo-page">
+  <header class="demo-header">
+    <div>
+      <a href="/" class="back-link">&larr; All Demos</a>
+      <h1>{{.Demo.Title}}</h1>
+      <p class="subtitle">{{.Demo.Description}}</p>
+    </div>
+  </header>
+
+  <div class="scenario-description">
+    <p>An API gateway handles incoming HTTP requests and needs to call backend microservices synchronously — validate auth tokens, look up user profiles, process payments. Each service responds with a result.</p>
+  </div>
+
+  <div class="demo-layout">
+    <!-- Controls Panel -->
+    <section class="panel controls-panel">
+      <h3>Quick Setup</h3>
+      <div class="input-group">
+        <button id="btn-setup-microservices" class="btn btn-outline">Setup: Microservices</button>
+        <button id="btn-preset-validate" class="btn btn-outline">Request: Validate Token</button>
+        <button id="btn-preset-charge" class="btn btn-outline">Request: Charge Payment</button>
+      </div>
+
+      <h3>Add Responder</h3>
+      <div class="input-group">
+        <input type="text" id="resp-name" placeholder="Name (e.g. PaymentService)" value="">
+        <input type="text" id="resp-subject" placeholder="Subject" value="auth.validate">
+        <input type="text" id="resp-delay" placeholder="Simulated delay (ms)" value="0">
+        <button id="btn-add-responder" class="btn btn-primary">Add Responder</button>
+      </div>
+
+      <h3>Send Request</h3>
+      <div class="input-group">
+        <input type="text" id="req-subject" placeholder="Subject" value="auth.validate">
+        <input type="text" id="req-payload" placeholder="Payload" value="What time is it?">
+        <input type="text" id="req-timeout" placeholder="Timeout (ms)" value="3000">
+        <button id="btn-request" class="btn btn-accent">Send Request</button>
+      </div>
+      <div class="input-group">
+        <button id="btn-burst" class="btn btn-outline">Burst 5 requests</button>
+      </div>
+    </section>
+
+    <!-- Visual Area -->
+    <section class="panel visual-panel">
+      <h3>Active Responders</h3>
+      <div id="responders" class="subscriber-list">
+        <p class="empty-state">No responders yet. Add one above.</p>
+      </div>
+
+      <h3>Message Flow</h3>
+      <div id="flow-diagram" class="flow-diagram-dynamic"></div>
+    </section>
+
+    <!-- Event Log -->
+    <section class="panel log-panel">
+      <div class="log-header">
+        <h3>Event Log</h3>
+        <button id="btn-clear-log" class="btn btn-small btn-outline">Clear</button>
+      </div>
+      <div id="event-log" class="event-log"></div>
+    </section>
+  </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/reqreply.js"></script>
+{{end}}

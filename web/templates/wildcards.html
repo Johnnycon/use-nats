@@ -1,0 +1,74 @@
+{{define "content"}}
+<div class="demo-page">
+  <header class="demo-header">
+    <div>
+      <a href="/" class="back-link">&larr; All Demos</a>
+      <h1>{{.Demo.Title}}</h1>
+      <p class="subtitle">{{.Demo.Description}}</p>
+    </div>
+  </header>
+
+  <div class="scenario-description">
+    <p>A multi-region e-commerce platform routes order events through NATS subjects like <code>orders.{region}.{status}</code>. Different services subscribe with wildcard patterns to receive the slice of traffic they care about. <code>*</code> matches exactly one token, <code>&gt;</code> matches one or more tokens at the tail.</p>
+    <p><strong>Try it:</strong> Set up the scenario, then publish different order events and watch which subscribers light up. USTeam only gets US events, GlobalShipping only gets shipped events, Analytics gets everything.</p>
+  </div>
+
+  <div class="demo-layout">
+    <!-- Controls Panel -->
+    <section class="panel controls-panel">
+      <h3>Quick Setup</h3>
+      <div class="input-group">
+        <button id="btn-setup-tracking" class="btn btn-outline">Setup: Order Tracking</button>
+      </div>
+
+      <h3>Preset Publish</h3>
+      <div class="input-group">
+        <button id="btn-pub-us-created" class="btn btn-outline">Publish: US Order Created</button>
+        <button id="btn-pub-eu-shipped" class="btn btn-outline">Publish: EU Order Shipped</button>
+        <button id="btn-pub-asia-paid" class="btn btn-outline">Publish: Asia Order Paid</button>
+      </div>
+
+      <h3>Subscribe</h3>
+      <div class="input-group">
+        <input type="text" id="sub-name" placeholder="Name (e.g. USTeam)" value="">
+        <input type="text" id="sub-subject" placeholder="Subject pattern (e.g. orders.us.*)" value="orders.>">
+        <button id="btn-subscribe" class="btn btn-primary">Subscribe</button>
+      </div>
+
+      <h3>Publish</h3>
+      <div class="input-group">
+        <input type="text" id="pub-subject" placeholder="Subject (e.g. orders.us.created)" value="orders.us.created">
+        <input type="text" id="pub-message" placeholder="Message" value='{"orderId":"ORD-1001","item":"Laptop"}'>
+        <button id="btn-publish" class="btn btn-accent">Publish</button>
+      </div>
+      <div class="input-group">
+        <button id="btn-burst" class="btn btn-outline">Burst 10 messages</button>
+      </div>
+    </section>
+
+    <!-- Visual Area -->
+    <section class="panel visual-panel">
+      <h3>Active Subscribers</h3>
+      <div id="subscribers" class="subscriber-list">
+        <p class="empty-state">No subscribers yet. Create one above.</p>
+      </div>
+
+      <h3>Message Flow</h3>
+      <div id="flow-diagram" class="flow-diagram-dynamic"></div>
+    </section>
+
+    <!-- Event Log -->
+    <section class="panel log-panel">
+      <div class="log-header">
+        <h3>Event Log</h3>
+        <button id="btn-clear-log" class="btn btn-small btn-outline">Clear</button>
+      </div>
+      <div id="event-log" class="event-log"></div>
+    </section>
+  </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/wildcards.js"></script>
+{{end}}

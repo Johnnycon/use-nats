@@ -1,0 +1,24 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.Title}}</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <nav class="topnav">
+    <a href="/" class="logo">NATS Lab</a>
+    <span class="nav-status" id="nats-status">connecting...</span>
+  </nav>
+  <main>
+    {{template "content" .}}
+  </main>
+  {{template "scripts" .}}
+</body>
+</html>
+{{end}}
+
+{{define "scripts"}}{{end}}
