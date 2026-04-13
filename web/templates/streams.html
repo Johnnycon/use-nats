@@ -1,0 +1,77 @@
+{{define "content"}}
+<div class="demo-page">
+  <header class="demo-header">
+    <div>
+      <a href="/" class="back-link">&larr; All Demos</a>
+      <h1>{{.Demo.Title}}</h1>
+      <p class="subtitle">{{.Demo.Description}}</p>
+    </div>
+  </header>
+
+  <div class="scenario-description">
+    <p>An e-commerce platform needs a durable record of all order events. Unlike core NATS where events vanish after delivery, JetStream stores them in a <strong>stream</strong> so services can replay historical events after a crash, audit what happened, or let new services catch up on past events they missed.</p>
+    <p><strong>Try it:</strong> Create the ORDERS stream, publish some order events, then replay them. Try purging and re-publishing. Watch the sequence numbers and stream stats update in real time.</p>
+  </div>
+
+  <div class="demo-layout">
+    <!-- Controls Panel -->
+    <section class="panel controls-panel">
+      <h3>Quick Setup</h3>
+      <div class="input-group">
+        <button id="btn-setup-orders" class="btn btn-outline">Setup: Order Ledger</button>
+        <button id="btn-preset-publish" class="btn btn-outline">Publish: Order Events</button>
+        <button id="btn-preset-replay" class="btn btn-outline">Replay Messages</button>
+      </div>
+
+      <h3>Create Stream</h3>
+      <div class="input-group">
+        <input type="text" id="stream-name" placeholder="Stream name" value="ORDERS">
+        <input type="text" id="stream-subjects" placeholder="Subjects (comma-separated)" value="orders.>">
+        <input type="text" id="stream-max-msgs" placeholder="Max messages (e.g. 1000)" value="1000">
+        <button id="btn-create-stream" class="btn btn-primary">Create Stream</button>
+      </div>
+
+      <h3>Publish to Stream</h3>
+      <div class="input-group">
+        <input type="text" id="pub-subject" placeholder="Subject (e.g. orders.created)" value="orders.created">
+        <input type="text" id="pub-message" placeholder="Message payload" value='{"orderId":"ORD-1001","item":"Laptop","amount":999.99}'>
+        <button id="btn-publish" class="btn btn-accent">Publish</button>
+      </div>
+
+      <h3>Stream Actions</h3>
+      <div class="input-group">
+        <button id="btn-stream-info" class="btn btn-outline">Get Stream Info</button>
+        <button id="btn-replay" class="btn btn-outline">Replay All Messages</button>
+        <button id="btn-purge" class="btn btn-danger">Purge Stream</button>
+        <button id="btn-delete" class="btn btn-danger">Delete Stream</button>
+      </div>
+    </section>
+
+    <!-- Stream Info + Stored Messages -->
+    <section class="panel visual-panel">
+      <h3>Stream Info</h3>
+      <div id="stream-info-card" class="stream-info-card">
+        <p class="empty-state">No stream created yet. Create one to see stats.</p>
+      </div>
+
+      <h3>Stored Messages</h3>
+      <div id="stored-messages" class="stored-messages">
+        <p class="empty-state">Replay messages to see stored data.</p>
+      </div>
+    </section>
+
+    <!-- Event Log -->
+    <section class="panel log-panel">
+      <div class="log-header">
+        <h3>Event Log</h3>
+        <button id="btn-clear-log" class="btn btn-small btn-outline">Clear</button>
+      </div>
+      <div id="event-log" class="event-log"></div>
+    </section>
+  </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/streams.js"></script>
+{{end}}
