@@ -13,6 +13,7 @@ type Demo struct {
 	Title       string // Human-readable title
 	Description string // One-line description shown on the dashboard
 	Category    string // "Core NATS" or "JetStream"
+	Order       int    // Sort order on the dashboard
 }
 
 // RegisterFunc sets up routes for a demo.
@@ -44,7 +45,7 @@ func All() []Demo {
 		out[i] = e.demo
 	}
 	sort.Slice(out, func(i, j int) bool {
-		return out[i].Title < out[j].Title
+		return out[i].Order < out[j].Order
 	})
 	return out
 }

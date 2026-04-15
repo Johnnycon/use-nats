@@ -20,6 +20,7 @@ func init() {
 		Title:       "2. Request/Reply",
 		Description: "Synchronous RPC-style messaging — send a request and get a response",
 		Category:    "Core NATS",
+		Order:       2,
 	}, Setup)
 }
 

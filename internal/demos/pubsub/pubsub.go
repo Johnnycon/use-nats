@@ -20,6 +20,7 @@ func init() {
 		Title:       "1. Pub/Sub",
 		Description: "Basic publish and subscribe — the core NATS pattern",
 		Category:    "Core NATS",
+		Order:       1,
 	}, Setup)
 }
 

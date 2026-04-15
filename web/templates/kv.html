@@ -1,0 +1,93 @@
+{{define "content"}}
+<div class="demo-page">
+  <header class="demo-header">
+    <div>
+      <a href="/" class="back-link">&larr; All Demos</a>
+      <h1>{{.Demo.Title}}</h1>
+      <p class="subtitle">{{.Demo.Description}}</p>
+    </div>
+  </header>
+
+  <div class="scenario-description">
+    <p>NATS JetStream includes a built-in <strong>Key-Value store</strong> -- like Redis or etcd, but embedded in your messaging layer. Every write creates a new <strong>revision number</strong>, and any service can <strong>watch</strong> for changes in real-time without polling.</p>
+    <p><strong>Try it:</strong> Click "Setup: User Profiles" to create a bucket with sample data. The table updates live via a watcher. Edit values, delete keys, and check History to see revisions. Then try a CAS update with a wrong revision to see optimistic locking fail.</p>
+  </div>
+
+  <div class="demo-layout">
+    <!-- Controls Panel -->
+    <section class="panel controls-panel">
+      <h3>Setup</h3>
+      <div class="input-group">
+        <button id="btn-quick-setup" class="btn btn-outline">Setup: User Profiles</button>
+      </div>
+
+      <h3>Put Key</h3>
+      <div class="input-group">
+        <input type="text" id="put-key" placeholder="Key" value="user.alice">
+        <input type="text" id="put-value" placeholder="Value" value='{"name":"Alice","role":"admin"}'>
+        <button id="btn-put" class="btn btn-accent">Put</button>
+      </div>
+
+      <h3>Lookup</h3>
+      <div class="input-group">
+        <input type="text" id="get-key" placeholder="Key" value="user.alice">
+        <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+          <button id="btn-get" class="btn btn-primary">Get</button>
+          <button id="btn-delete-key" class="btn btn-danger">Delete</button>
+          <button id="btn-history" class="btn btn-outline">History</button>
+        </div>
+      </div>
+
+      <h3>Compare-and-Swap</h3>
+      <div class="input-group">
+        <p class="kv-cas-hint">Update only if the key is still at a specific revision. Prevents lost updates when multiple services write concurrently.</p>
+        <input type="text" id="cas-key" placeholder="Key" value="user.alice">
+        <input type="text" id="cas-value" placeholder="New value" value='{"name":"Alice","role":"superadmin"}'>
+        <input type="text" id="cas-revision" placeholder="Expected revision #" value="">
+        <button id="btn-cas" class="btn btn-primary">CAS Update</button>
+      </div>
+    </section>
+
+    <!-- Visual Panel -->
+    <section class="panel visual-panel">
+      <div class="kv-visual-header">
+        <h3>Live Key-Value Store</h3>
+        <div id="kv-watcher-status"></div>
+      </div>
+
+      <div id="bucket-info-card"></div>
+
+      <div id="kv-table-wrap" class="kv-table-wrap">
+        <table class="kv-table">
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Value</th>
+              <th>Rev</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="kv-table-body">
+            <tr><td colspan="4" class="empty-state">Click "Setup: User Profiles" to get started.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="kv-history" class="kv-history" style="display:none;"></div>
+    </section>
+
+    <!-- Event Log -->
+    <section class="panel log-panel">
+      <div class="log-header">
+        <h3>Event Log</h3>
+        <button id="btn-clear-log" class="btn btn-small btn-outline">Clear</button>
+      </div>
+      <div id="event-log" class="event-log"></div>
+    </section>
+  </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/kv.js"></script>
+{{end}}

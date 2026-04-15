@@ -20,6 +20,7 @@ func init() {
 		Title:       "5. Wildcard Routing",
 		Description: "Match multiple subjects with * and > wildcards for flexible routing",
 		Category:    "Core NATS",
+		Order:       5,
 	}, Setup)
 }
 

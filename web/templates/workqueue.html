@@ -1,0 +1,82 @@
+{{define "content"}}
+<div class="demo-page">
+  <header class="demo-header">
+    <div>
+      <a href="/" class="back-link">&larr; All Demos</a>
+      <h1>{{.Demo.Title}}</h1>
+      <p class="subtitle">{{.Demo.Description}}</p>
+    </div>
+  </header>
+
+  <div class="scenario-description">
+    <p>A task processing system needs to distribute work across multiple workers reliably. Unlike Demo 3's queue groups (fire-and-forget), a JetStream <strong>work queue</strong> guarantees each task is delivered to exactly one worker, persists unprocessed tasks if all workers are down, and redelivers tasks that aren't acknowledged in time.</p>
+    <p><strong>Try it:</strong> Run "Setup: Work Queue" to create the stream and shared consumer. Add 2-3 workers, publish a batch of tasks, then fetch and process them. Watch how tasks are distributed across workers. Nak a task to see it get redelivered to another worker on the next fetch.</p>
+  </div>
+
+  <div class="demo-layout">
+    <!-- Controls Panel -->
+    <section class="panel controls-panel">
+      <h3>Quick Setup</h3>
+      <div class="input-group">
+        <button id="btn-setup-queue" class="btn btn-outline">Setup: Work Queue</button>
+        <button id="btn-publish-batch" class="btn btn-outline">Publish: 10 Tasks</button>
+        <button id="btn-fetch-all" class="btn btn-outline">All Workers: Fetch</button>
+      </div>
+
+      <h3>Add Worker</h3>
+      <div class="input-group">
+        <input type="text" id="worker-name" placeholder="Worker name" value="Alpha">
+        <button id="btn-add-worker" class="btn btn-primary">Add Worker</button>
+      </div>
+
+      <h3>Publish Task</h3>
+      <div class="input-group">
+        <select id="task-type" class="select-input">
+          <option value="email">email</option>
+          <option value="resize">resize</option>
+          <option value="report">report</option>
+          <option value="notify">notify</option>
+        </select>
+        <input type="text" id="task-data" placeholder="Task payload (optional)" value="">
+        <button id="btn-publish-task" class="btn btn-accent">Publish Task</button>
+      </div>
+
+      <h3>Stream</h3>
+      <div class="input-group">
+        <button id="btn-stream-info" class="btn btn-outline">Stream Info</button>
+      </div>
+    </section>
+
+    <!-- Visual Panel -->
+    <section class="panel visual-panel">
+      <h3>Work Queue Stream</h3>
+      <div id="stream-info-card">
+        <p class="empty-state">Run "Setup: Work Queue" to create the stream.</p>
+      </div>
+
+      <h3>Workers</h3>
+      <div id="worker-cards" class="wq-worker-cards">
+        <p class="empty-state">No workers yet. Add workers to process tasks.</p>
+      </div>
+
+      <h3>Task Distribution</h3>
+      <div id="task-distribution" class="wq-distribution">
+        <p class="empty-state">Process tasks to see distribution across workers.</p>
+      </div>
+    </section>
+
+    <!-- Event Log -->
+    <section class="panel log-panel">
+      <div class="log-header">
+        <h3>Event Log</h3>
+        <button id="btn-clear-log" class="btn btn-small btn-outline">Clear</button>
+      </div>
+      <div id="event-log" class="event-log"></div>
+    </section>
+  </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/workqueue.js"></script>
+{{end}}

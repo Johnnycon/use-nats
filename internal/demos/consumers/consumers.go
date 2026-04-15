@@ -20,6 +20,7 @@ func init() {
 		Title:       "7. Durable Consumers",
 		Description: "Durable and ephemeral consumers with ack/nak, redelivery, and deliver policies",
 		Category:    "JetStream",
+		Order:       7,
 	}, Setup)
 }
 

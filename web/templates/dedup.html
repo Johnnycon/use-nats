@@ -1,0 +1,82 @@
+{{define "content"}}
+<div class="demo-page">
+  <header class="demo-header">
+    <div>
+      <a href="/" class="back-link">&larr; All Demos</a>
+      <h1>{{.Demo.Title}}</h1>
+      <p class="subtitle">{{.Demo.Description}}</p>
+    </div>
+  </header>
+
+  <div class="scenario-description">
+    <p>Network retries and at-least-once delivery can cause the same message to arrive twice. JetStream solves this with the <code>Nats-Msg-Id</code> header &mdash; if a message with the same ID arrives within the dedup window, JetStream silently drops it and returns <code>duplicate: true</code> in the publish ack. The original is stored once.</p>
+    <p><strong>Try it:</strong> Click "Run Demo" to see the full flow in one click &mdash; it creates the stream, publishes a message, then re-sends the same ID so you can watch the duplicate get rejected. Click "Batch Test" to see 5 originals accepted and 5 duplicates blocked. Then hit "Replay Stream" to confirm only originals were stored.</p>
+  </div>
+
+  <div class="demo-layout">
+    <!-- Controls Panel -->
+    <section class="panel controls-panel">
+      <h3>Quick Start</h3>
+      <div class="input-group">
+        <button id="btn-run-demo" class="btn btn-primary">Run Demo</button>
+        <button id="btn-batch-demo" class="btn btn-accent">Batch Test</button>
+      </div>
+      <p class="dd-hint">"Run Demo" sets up the stream, publishes a message, then re-sends the same ID to show dedup in action. "Batch Test" publishes 5 originals and re-sends all 5.</p>
+
+      <h3>Inspect</h3>
+      <div class="input-group">
+        <button id="btn-stream-info" class="btn btn-outline">Stream Info</button>
+        <button id="btn-replay" class="btn btn-outline">Replay Stream</button>
+        <button id="btn-no-dedup" class="btn btn-outline">Publish Without ID</button>
+      </div>
+
+      <h3>Manual Publish</h3>
+      <div class="input-group">
+        <input type="text" id="msg-id" placeholder="Message ID (auto if blank)">
+        <input type="text" id="msg-payload" placeholder="Payload (auto if blank)">
+        <button id="btn-publish" class="btn btn-outline">Publish</button>
+      </div>
+      <div class="input-group">
+        <input type="text" id="dedup-id" placeholder="Re-send this Msg ID">
+        <button id="btn-duplicate" class="btn btn-outline">Send Duplicate</button>
+      </div>
+    </section>
+
+    <!-- Visual Panel -->
+    <section class="panel visual-panel">
+      <h3>Stream</h3>
+      <div id="stream-info" class="dd-stream-info">
+        <p class="empty-state">Click "Setup Stream" to create a dedup-enabled stream.</p>
+      </div>
+
+      <h3>Published Messages</h3>
+      <div id="messages-table" class="dd-messages-wrap">
+        <p class="empty-state">Publish messages to see dedup in action.</p>
+      </div>
+
+      <h3>Batch Results</h3>
+      <div id="batch-results" class="dd-batch-wrap">
+        <p class="empty-state">Run "Batch Test" to see originals vs. duplicates side by side.</p>
+      </div>
+
+      <h3>Stream Replay</h3>
+      <div id="replay-results" class="dd-replay-wrap">
+        <p class="empty-state">Click "Replay Stream" to read all stored messages.</p>
+      </div>
+    </section>
+
+    <!-- Event Log -->
+    <section class="panel log-panel">
+      <div class="log-header">
+        <h3>Event Log</h3>
+        <button id="btn-clear-log" class="btn btn-small btn-outline">Clear</button>
+      </div>
+      <div id="event-log" class="event-log"></div>
+    </section>
+  </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/dedup.js"></script>
+{{end}}

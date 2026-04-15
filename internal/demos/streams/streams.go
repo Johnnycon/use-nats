@@ -20,6 +20,7 @@ func init() {
 		Title:       "6. JetStream Streams",
 		Description: "Persistent message storage with JetStream streams, replay, and retention limits",
 		Category:    "JetStream",
+		Order:       6,
 	}, Setup)
 }
 
