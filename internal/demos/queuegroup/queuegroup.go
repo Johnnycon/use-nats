@@ -20,6 +20,7 @@ func init() {
 		Title:       "3. Queue Groups",
 		Description: "Load-balanced message delivery — each message goes to one group member",
 		Category:    "Core NATS",
+		Order:       3,
 	}, Setup)
 }
 

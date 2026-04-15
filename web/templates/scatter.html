@@ -1,0 +1,72 @@
+{{define "content"}}
+<div class="demo-page">
+  <header class="demo-header">
+    <div>
+      <a href="/" class="back-link">&larr; All Demos</a>
+      <h1>{{.Demo.Title}}</h1>
+      <p class="subtitle">{{.Demo.Description}}</p>
+    </div>
+  </header>
+
+  <div class="scenario-description">
+    <p>A price comparison engine needs to query multiple providers simultaneously and return all results. Unlike Request/Reply (Demo 2) which waits for the <strong>first</strong> response, scatter-gather broadcasts the request and collects <strong>all</strong> replies within a deadline. Fast providers appear instantly; slow ones arrive later -- but nothing blocks.</p>
+    <p><strong>Try it:</strong> Click "Setup: Price Search" to create 4 providers with different response times. Then hit "Scatter: Search All" and watch replies stream in one by one. Try removing a slow provider or adding a new one to see how the results change.</p>
+  </div>
+
+  <div class="demo-layout">
+    <!-- Controls Panel -->
+    <section class="panel controls-panel">
+      <h3>Setup</h3>
+      <div class="input-group">
+        <button id="btn-setup-providers" class="btn btn-outline">Setup: Price Search</button>
+        <button id="btn-scatter-preset" class="btn btn-outline">Scatter: Search All</button>
+      </div>
+
+      <h3>Add Provider</h3>
+      <div class="input-group">
+        <input type="text" id="resp-name" placeholder="Provider name" value="NewProvider">
+        <input type="text" id="resp-delay" placeholder="Response delay (ms)" value="100">
+        <button id="btn-add-responder" class="btn btn-primary">Add Provider</button>
+      </div>
+
+      <h3>Scatter Request</h3>
+      <div class="input-group">
+        <input type="text" id="scatter-payload" placeholder="Search query" value='"MacBook Pro 16"'>
+        <input type="text" id="scatter-timeout" placeholder="Deadline (ms)" value="2000">
+        <button id="btn-scatter" class="btn btn-accent">Scatter</button>
+      </div>
+    </section>
+
+    <!-- Visual Panel -->
+    <section class="panel visual-panel">
+      <h3>Providers</h3>
+      <div id="provider-cards" class="sg-providers">
+        <p class="empty-state">Click "Setup: Price Search" to add providers.</p>
+      </div>
+
+      <h3>Scatter Results</h3>
+      <div id="scatter-results" class="sg-results">
+        <p class="empty-state">Send a scatter request to see replies stream in.</p>
+      </div>
+
+      <h3>Timeline</h3>
+      <div id="scatter-timeline" class="sg-timeline-wrap">
+        <p class="empty-state">Results will appear on a timeline showing response latency.</p>
+      </div>
+    </section>
+
+    <!-- Event Log -->
+    <section class="panel log-panel">
+      <div class="log-header">
+        <h3>Event Log</h3>
+        <button id="btn-clear-log" class="btn btn-small btn-outline">Clear</button>
+      </div>
+      <div id="event-log" class="event-log"></div>
+    </section>
+  </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/scatter.js"></script>
+{{end}}

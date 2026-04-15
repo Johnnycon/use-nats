@@ -20,6 +20,7 @@ func init() {
 		Title:       "4. Broadcast",
 		Description: "One message, every subscriber receives it — fire-and-forget to all instances",
 		Category:    "Core NATS",
+		Order:       4,
 	}, Setup)
 }
 

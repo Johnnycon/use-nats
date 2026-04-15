@@ -4,7 +4,7 @@
 
 A hands-on learning project for NATS and JetStream, written in Go. The app is a single binary that runs an embedded NATS server, an HTTP server on `:8092`, and a WebSocket hub for real-time UI updates. No Docker required for most demos.
 
-The goal is ~10 isolated demo pages, each showcasing a different NATS messaging pattern with a real interactive UI — controls, live event logs, and visual diagrams showing messages flowing in real-time.
+The goal is 11 isolated demo pages, each showcasing a different NATS messaging pattern with a real interactive UI — controls, live event logs, and visual diagrams showing messages flowing in real-time.
 
 ## Running
 
@@ -36,9 +36,16 @@ internal/
   demos/
     registry.go             # Demo registration system
     pubsub/pubsub.go        # Demo 1: Pub/Sub
-    reqreply/               # Demo 2: Request/Reply (planned)
-    queuegroup/             # Demo 3: Queue Groups (planned)
-    ...
+    reqreply/reqreply.go    # Demo 2: Request/Reply
+    queuegroup/             # Demo 3: Queue Groups
+    fanout/                 # Demo 4: Broadcast
+    wildcards/              # Demo 5: Wildcard Routing
+    streams/                # Demo 6: JetStream Streams
+    consumers/              # Demo 7: Durable Consumers
+    workqueue/              # Demo 8: Work Queue
+    kv/                     # Demo 9: Key-Value Store
+    scatter/                # Demo 10: Scatter-Gather
+    dedup/                  # Demo 11: Exactly-Once / Dedup
 web/
   static/css/style.css      # Shared dark-theme styles
   static/js/pubsub.js       # Per-demo JS
@@ -58,11 +65,11 @@ web/
 | 4 | `fanout` | Broadcast | Core NATS | Done |
 | 5 | `wildcards` | Wildcard Routing | Core NATS | Done |
 | 6 | `streams` | JetStream Streams | JetStream | Done |
-| 7 | `consumers` | Durable Consumers | JetStream | Planned |
-| 8 | `workqueue` | Work Queue | JetStream | Planned |
-| 9 | `kv` | Key-Value Store | JetStream | Planned |
-| 10 | `scatter` | Scatter-Gather | Core NATS | Planned |
-| 11 | `dedup` | Exactly-Once / Dedup | JetStream | Planned |
+| 7 | `consumers` | Durable Consumers | JetStream | Done |
+| 8 | `workqueue` | Work Queue | JetStream | Done |
+| 9 | `kv` | Key-Value Store | JetStream | Done |
+| 10 | `scatter` | Scatter-Gather | Core NATS | Done |
+| 11 | `dedup` | Exactly-Once / Dedup | JetStream | Done |
 
 ### What Each Demo Includes
 - **Controls panel** — buttons to publish, subscribe, add workers, etc.
